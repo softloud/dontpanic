@@ -2,7 +2,7 @@
 dontpanic
 =========
 
-The goal of dontpanic is to ...
+The goal of dontpanic is to be the coding equivalent of a towel. My helper functions are parked here. Work in progress, use at own risk.
 
 Example
 -------
