@@ -30,6 +30,7 @@ You're usually looking for an issue not a person, so the issue should be on the 
 
 > :issue\_emoji: Some commit message. :person\_emoji:
 
-### 
+### Signifiers
 
-> :octocat: pandagrrl. :notes: Updated README.Rmd. Quavers indicate daily, weekly, and future logs in my bullet journal.
+-   `pandagrrl` :octocat:.
+-   :notes: Updated README.Rmd. Quavers indicate daily, weekly, and future logs in my bullet journal.
