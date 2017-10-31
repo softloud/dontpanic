@@ -32,5 +32,5 @@ You're usually looking for an issue not a person, so the issue should be on the 
 
 ### Signifiers
 
--   `pandagrrl` :octocat:.
--   :notes: Updated README.Rmd. Quavers indicate daily, weekly, and future logs in my bullet journal.
+-   `pandagrrl` :notes:.
+-   :musical\_score: Updated README.Rmd. Quavers indicate daily, weekly, and future logs in my bullet journal.
