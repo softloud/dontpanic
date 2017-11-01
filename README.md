@@ -11,6 +11,8 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 ## basic example code
+
+# Yeah, I wouldn't trust any code I haven't touched for a few weeks. It has as life of its own. 
 ```
 
 Signifiers
@@ -32,7 +34,9 @@ You're usually looking for an issue not a person, so the issue should be on the 
 
 ### Signifiers
 
+Perhaps I should just wrap these up in some functions.
+
 -   `pandagrrl` :notes:.
 -   :musical\_score: Documentation.
--   :musical\_keyboard: Updated README.Rmd. Quavers indicate daily, weekly, and future logs in my bullet journal.
+-   :musical\_keyboard: Updated README.Rmd.
 -   :cat: Any work on functions.

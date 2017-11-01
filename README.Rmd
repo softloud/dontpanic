@@ -24,6 +24,9 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 ## basic example code
+
+# Yeah, I wouldn't trust any code I haven't touched for a few weeks. It has as life of its own. 
+
 ```
 
 ## Signifiers
@@ -44,8 +47,9 @@ You're usually looking for an issue not a person, so the issue should be on the 
 
 ### Signifiers
 
+Perhaps I should just wrap these up in some functions. 
+
 - `pandagrrl` :notes:. 
 - :musical_score: Documentation.
 - :musical_keyboard: Updated README.Rmd. 
 - :cat: Any work on functions.
-
