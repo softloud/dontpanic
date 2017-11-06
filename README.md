@@ -36,8 +36,8 @@ You're usually looking for an issue not a person, so the issue should be on the 
 
 Perhaps I should just wrap these up in some functions.
 
--   `pandagrrl` :notes:.
--   :musical\_score: Documentation.
--   :musical\_keyboard: Updated README.Rmd.
--   :cat: Any work on functions.
+-   `:notes:` `pandagrrl` :notes:.
+-   `:musical_score:` :musical\_score: Documentation.
+-   `:musical_keyboard:` :musical\_keyboard: Updated README.Rmd.
+-   `:cat:` :cat: Any work on functions.
 -   :dizzy: Testing.
