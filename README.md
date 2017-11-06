@@ -40,4 +40,4 @@ Perhaps I should just wrap these up in some functions.
 -   `:musical_score:` :musical\_score: Documentation.
 -   `:musical_keyboard:` :musical\_keyboard: Updated README.Rmd.
 -   `:cat:` :cat: Any work on functions.
--   :dizzy: Testing.
+-   `:dizzy:` :dizzy: Testing.
