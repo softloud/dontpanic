@@ -1,14 +1,14 @@
-#' Generic sd function
-#' 
+#' Generic Sd Function
+#'
 #' Calculates the standard deviation for an arbitrary distribution.
-#' 
+#'
 #' @param dist A baseR distribution string (e.g., "lnorm").
 #' @param par A list of parameters.
-#'   
+#'
 #' @export
 
-get_sd <- function(dist, par, this.mean) {
-  this.f <- function(x) {
+get_sd <- function(dist, par, this_mean) {
+  this_f <- function(x) {
     eval(parse(
       text = paste0(
         x ^ 2,
@@ -23,15 +23,15 @@ get_sd <- function(dist, par, this.mean) {
       )
     ))
   }
-  this.f <- Vectorize(this.f)
-  
-  e.of.x.sq <-
+  this_f <- Vectorize(this_f)
+
+  EXsq <-
     integrate(
-      this.f,
+      this_f,
       lower = -Inf,
       upper = Inf,
       subdivisions = 10000L
     )$value
-  
-  return(sqrt(e.of.x.sq - this.mean ^ 2))
+
+  return(sqrt(EXsq - this_mean ^ 2))
 }

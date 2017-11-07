@@ -2,9 +2,9 @@
 % Please edit documentation in R/get-sd.R
 \name{get_sd}
 \alias{get_sd}
-\title{Generic sd function}
+\title{Generic Sd Function}
 \usage{
-get_sd(dist, par, this.mean)
+get_sd(dist, par, this_mean)
 }
 \arguments{
 \item{dist}{A baseR distribution string (e.g., "lnorm").}
