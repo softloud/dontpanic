@@ -41,3 +41,4 @@ Perhaps I should just wrap these up in some functions.
 -   `:musical_keyboard:` :musical\_keyboard: Updated README.Rmd.
 -   `:cat:` :cat: Any work on functions.
 -   `:dizzy:` :dizzy: Testing.
+-   `:cat2:` :cat2: Simulations.
