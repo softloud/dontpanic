@@ -28,6 +28,12 @@ x <- runif(1, 0.2, 0.8)
 this_sample <-
   get_sample(n = this_n, dist = this_dist, par = this_par)
 
+this_ss <- sample_summary(this_n, this_dist, par = this_par)
+
+ss_sample <- this_ss[[1]]
+ss_summary <- this_ss[[2]]
+
+
 test_that("any_dist returns what it should", {
   # Check all defaults.
   expect_equal(any_dist(x, dist = "norm"), qnorm(x))
@@ -40,4 +46,14 @@ test_that("any_dist returns what it should", {
 
 })
 
-# test_that("get_summary matches summary stats",)
+test_that("sample_summary matches summary stats", {
+  # Check all column outputs.
+  expect_equal(mean(ss_sample), ss_summary$mean)
+  expect_equal(median(ss_sample), ss_summary$median)
+  expect_equal(min(ss_sample), ss_summary$min)
+  expect_equal(max(ss_sample), ss_summary$max)
+  expect_equal(IQR(ss_sample), ss_summary$iqr)
+  expect_equal(range(ss_sample)[2] - range(ss_sample)[1], ss_summary$range)
+  expect_equal(sd(ss_sample), ss_summary$sd)
+  expect_equal(var(ss_sample), ss_summary$var)
+})

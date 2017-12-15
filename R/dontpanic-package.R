@@ -1,6 +1,5 @@
 #' @importFrom magrittr %>%
 #'
-
 #' @export
 magrittr::`%>%`
 
@@ -9,7 +8,7 @@ magrittr::`%>%`
 #' My helper functions are parked here. Use at own risk.
 #'
 #' @docType package
-#' @name cricinfo
+#' @name dontpanic
 #' @keywords package
 NULL
 #"_PACKAGE"

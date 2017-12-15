@@ -1,11 +1,11 @@
 #' Sample function
-#' 
+#'
 #' Generate a sample from an arbitrary distribution
-#' 
+#'
 #' @param n Sample size.
 #' @param dist A baseR distribution name, e.g. "lnorm".
 #' @param par A list of parameters.
-#' 
+#'
 #' @export
 
 get_sample <- function(n, dist, par) {
@@ -18,7 +18,7 @@ get_sample <- function(n, dist, par) {
   #
   # Returns:
   #   A vector sample.
-  
+
   return(eval(parse(
     text =  paste0(
       "r",
