@@ -6,6 +6,12 @@
 \usage{
 measured_data(atracker_file)
 }
+\arguments{
+\item{atracker_file}{An irritatingly manual process at the moment.}
+}
 \description{
-Get data
+This function gathers up my productivity data for `measured.` blog and `life's work`.
+}
+\details{
+If it doesn't run, try [these instructions](https://github.com/jennybc/googlesheets/issues/343).
 }
