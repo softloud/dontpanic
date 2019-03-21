@@ -1,0 +1,3 @@
+[
+["_main.html", "import data", " import data # get data via horrible manual export measures &lt;- lifeswork:::measured_data( &quot;~/Downloads/Details-20170101-20200228.csv&quot;) # write data measures %&gt;% mdat_raw %&gt;% use_data(overwrite = TRUE) "]
+]

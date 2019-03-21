@@ -2,6 +2,13 @@
 
 export("%>%")
 export(dist_name)
+export(get_measures)
+export(mosaic_intensity)
 export(title_date)
 export(today_rethinking_ex)
+export(wrangle_measures)
+import(dplyr)
+import(forcats)
+import(purrr)
+import(tidyr)
 importFrom(magrittr,"%>%")
