@@ -9,5 +9,13 @@ calculate_pom_goal <-
   function(travel_hrs = 0,
            community_hrs = 0) {
     goal <- floor(14 - travel_hrs - 1.5 * community_hrs)
+
+    wk <- measures$data$workload_key %>%
+      select(workload, phi, theta, psi) %>%
+      mutate(total = phi + theta + psi,
+             aim_for = total <= goal)
+
     cat(paste0("\naim to get ", goal, " poms done today\n"))
+    wk
+
   }
