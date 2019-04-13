@@ -8,6 +8,8 @@ intensities <- c(
 
 #' wrangle measured. data
 #'
+#' this is currently hardcoded in document
+#'
 #' @param df \code{\link{measured_data}} output
 #'
 #' @export

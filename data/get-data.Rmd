@@ -1,0 +1,110 @@
+---
+title: "get data"
+author: "Charles T. Gray"
+date: "04/04/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+here::here()
+```
+
+
+```{r get data, cache=TRUE} 
+time_tracker_raw <-
+  readr::read_csv("~/Downloads/Details-20170101-20200228.csv")
+
+
+readr::write_rds(time_tracker_raw, 
+                 "data/time_tracker_raw.rds")
+
+# import measures (googlesheet where I track things manually)
+measures <- googlesheets::gs_title("measures")
+readr::write_r(measures, "data/measures.rds")
+
+
+time_tracker <- time_tracker_raw %>%
+  # tidy column names
+  dplyr::rename(
+    task = `Task name`,
+    description = `Task description`,
+    start = `Start time`,
+    finish = `End time`,
+    duration = Duration,
+    duration_hrs = `Duration in hours`,
+    note = Note,
+    category = Category
+  ) %>%
+  dplyr::mutate(
+    # get date object, as I'll want to do things by day
+    start = lubridate::dmy_hm(start),
+    finish = lubridate::dmy_hm(finish),
+    date = lubridate::date(start)
+  )
+write.csv(time_tracker, 
+                 "time_tracker.csv")
+
+Sys.sleep(2)
+
+dataset_key <- measures %>%
+  googlesheets::gs_read(ws = "dataset_key")
+readr::write_rds(dataset_key, 
+                 "data/dataset_key.rds")
+
+Sys.sleep(2)
+
+# extract daily record
+daily <- measures %>%
+  googlesheets::gs_read(ws = "daily_record") %>%
+  dplyr::mutate(date = lubridate::ymd(date))
+readr::write_rds(daily, 
+                 "data/daily.rds")
+
+Sys.sleep(2)
+
+# extract daily tasks
+daily_tasks <- measures %>%
+  googlesheets::gs_read(ws = "daily_tasks")
+readr::write_rds(daily_tasks, 
+                 "data/daily_tasks.rds")
+
+Sys.sleep(2)
+
+# extract daily record
+signifiers <- measures %>%
+  googlesheets::gs_read(ws = "signifiers")
+readr::write_rds(signifiers, 
+                 "data/signifiers.rds")
+
+Sys.sleep(2)
+
+# extract operations
+operations <- measures %>%
+  googlesheets::gs_read(ws = "operations") %>%
+  dplyr::mutate(initiated = lubridate::ymd(initiated))
+readr::write_rds(operations, 
+                 "data/operations.rds")
+
+Sys.sleep(2)
+
+
+# workload definitions
+workload_key <- measures %>%
+  googlesheets::gs_read(ws = "workload")
+readr::write_rds(workload_key, 
+                 "data/workload_key.rds")
+
+Sys.sleep(2)
+
+
+day_view <- measures %>%
+  googlesheets::gs_read(ws = "day_view")
+readr::write_rds(day_view, 
+                 "data/day_view.rds")
+ 
+    
+
+```
+

@@ -10,5 +10,5 @@ wrangle_measures(datalist = measures)
 \item{df}{\code{\link{measured_data}} output}
 }
 \description{
-wrangle measured. data
+this is currently hardcoded in document
 }

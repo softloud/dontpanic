@@ -4,7 +4,7 @@
 \alias{get_measures}
 \title{Get data}
 \usage{
-get_measures(atracker_file)
+get_measures()
 }
 \arguments{
 \item{atracker_file}{An irritatingly manual process at the moment.}
