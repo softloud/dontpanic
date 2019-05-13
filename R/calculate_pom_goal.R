@@ -7,13 +7,32 @@
 
 calculate_pom_goal <-
   function(travel_hrs = 0,
-           community_hrs = 0) {
+           community_hrs = 0,
+           min_phi_hrs = 0,
+           min_theta_hrs = 0,
+           min_psi_hrs = 0) {
     goal <- floor(14 - travel_hrs - 1.5 * community_hrs)
 
-    wk <- measures$data$workload_key %>%
-      select(workload, phi, theta, psi) %>%
-      mutate(total = phi + theta + psi,
-             aim_for = total <= goal)
+    wk <- workload_key %>%
+      dplyr::select(workload, phi, theta, psi) %>%
+      dplyr::mutate(total = phi + theta + psi,
+             aim_for = total <= goal) %>%
+      dplyr::filter(
+        phi > min_phi_hrs,
+        theta > min_theta_hrs,
+        psi > min_psi_hrs,
+        aim_for == TRUE
+      ) %>%
+      select(-aim_for) %>%
+      tidyr::gather(key = "category", value = "poms", phi, theta, psi) %>%
+      rename(usual = total) %>%
+      mutate(pom_diff = case_when(
+        category == "phi" ~ poms - min_phi_hrs * 3,
+        category == "theta" ~ poms - min_theta_hrs * 3,
+        category == "psi" ~ poms - min_psi_hrs * 3
+      )) %>%
+      filter(pom_diff > 0)
+
 
     cat(paste0("\naim to get ", goal, " poms done today\n"))
     wk

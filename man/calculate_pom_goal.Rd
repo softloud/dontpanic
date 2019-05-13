@@ -4,7 +4,8 @@
 \alias{calculate_pom_goal}
 \title{calculate number of poms}
 \usage{
-calculate_pom_goal(travel_hrs = 0, community_hrs = 0)
+calculate_pom_goal(travel_hrs = 0, community_hrs = 0,
+  min_phi_hrs = 0, min_theta_hrs = 0, min_psi_hrs = 0)
 }
 \arguments{
 \item{travel_hrs}{number of hours of teaching}

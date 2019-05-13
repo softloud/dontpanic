@@ -8,7 +8,7 @@
 #' @export
 
 mosaic_intensity <- function(days = 100000,
-                             df = lifeswork:::wrangle_measures(),
+                             df = dontpanic::time_tracker,
                              angle = 35,
                              # vjust = 1,
                              hjust = 1, ...) {

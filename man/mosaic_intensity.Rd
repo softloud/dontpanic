@@ -4,7 +4,7 @@
 \alias{mosaic_intensity}
 \title{Mosaic plot of workload}
 \usage{
-mosaic_intensity(days = 1e+05, df = lifeswork:::wrangle_measures(),
+mosaic_intensity(days = 1e+05, df = dontpanic::time_tracker,
   angle = 35, hjust = 1, ...)
 }
 \arguments{
