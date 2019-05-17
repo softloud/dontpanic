@@ -4,7 +4,7 @@
 \alias{wrangle_measures}
 \title{wrangle measured. data}
 \usage{
-wrangle_measures(datalist = measures)
+wrangle_measures(timetracker)
 }
 \arguments{
 \item{df}{\code{\link{measured_data}} output}

@@ -4,7 +4,7 @@
 \alias{get_measures}
 \title{Get data}
 \usage{
-get_measures()
+get_measures(gs_title = "measures", update = FALSE, delay = 7)
 }
 \arguments{
 \item{atracker_file}{An irritatingly manual process at the moment.}

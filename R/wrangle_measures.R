@@ -14,15 +14,14 @@ intensities <- c(
 #'
 #' @export
 
-wrangle_measures <- function(datalist = measures) {
-  goals <- measures %>% pluck("data", "workload_key") %>%
+wrangle_measures <- function(timetracker) {
+  goals <- workload_key %>%
     select(workload, phi_hrs, theta_hrs, psi_hrs) %>%
     gather(key = "category", value = "poms", phi_hrs, theta_hrs, psi_hrs) %>%
     spread(key = "workload", value = "poms") %>%
     mutate(category = str_sub(category, end = -5))
 
-  daily_work <- datalist %>%
-    purrr::pluck("data", "time_tracker") %>%
+  daily_work <- timetracker %>%
     mutate(duration_hrs = if_else(is.na(duration_hrs), 0, duration_hrs)) %>%
     dplyr::filter(category == "phi" |
                     category == "theta" | category == "psi") %>%

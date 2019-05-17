@@ -254,9 +254,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -281,22 +279,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -310,24 +378,35 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code># get data via horrible manual export
-measures &lt;- lifeswork:::get_measures(
-  &quot;~/Downloads/Details-20170101-20200228.csv&quot;)</code></pre>
-<pre class="r"><code># write data
-use_data(measures, overwrite = TRUE)</code></pre>
+<pre class="zsh"><code># clear 
+rm ~/Downloads/Details-20170101-20200228*
+</code></pre>
+<pre class="r"><code># get data
+measures &lt;- get_measures(delay = 10, update = TRUE)</code></pre>
 <pre class="r"><code># generate roxygen for dontpanic measured based on current datasets.
 
 map2_chr(.x = measures %&gt;% pluck(&quot;data&quot;) %&gt;% names(),
      .y = measures %&gt;% pluck(&quot;description&quot;),
      .f = function(x, y) {
   paste0(&quot;#' \t \\item{&quot;, x, &quot;}{&quot;, y, &quot;}\n&quot;, collapse = &quot;&quot;)})%&gt;% cat()</code></pre>
-<pre><code>## #'    \item{time_tracker_raw}{daily time records raw data from atracker}
-##  #'   \item{time_tracker}{tidied column names and date objects}
-##  #'   \item{measures}{google sheets records}
-##  #'   \item{workload_key}{current pom goals}
-##  #'   \item{operations}{phases of work}
-##  #'   \item{daily}{manual daily records tracked in a googlesheet}
-##  #'   \item{signifiers}{symbol signfiers for bullet journalling and visualisations}</code></pre>
+<pre class="r"><code># add latex bindings to daily tasks
+daily_tasks &lt;- measures %&gt;% 
+  pluck(&quot;daily_tasks&quot;) %&gt;% 
+  mutate(priority = map_chr(priority, knittify_latex),
+         context = map_chr(context, knittify_latex),
+         category = map_chr(category, knittify_latex))
+
+daily_tasks %&gt;% head()</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   priority context    category task      description                       
+##   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;                             
+## 1 $*$      &quot;$\\natur… &quot;$\\psi… calendar  check day, week, month; note even…
+## 2 $*$      &quot;$\\foral… &quot;$\\psi… what is … task or project must be due today…
+## 3 $*$      &quot;$\\natur… &quot;$\\psi… inboxes   email, 3c2 , handbag, unpack suit…
+## 4 $*$      &quot;$\\natur… &quot;$\\psi… 3c^2 inb… &lt;NA&gt;                              
+## 5 $*$      &quot;$\\sharp… &quot;$\\pi$&quot; handbag   &lt;NA&gt;                              
+## 6 $*$      &quot;$\\sharp… &quot;$\\pi$&quot; unpack s… &lt;NA&gt;</code></pre>
+<pre class="r"><code>use_data(daily_tasks, overwrite = TRUE)</code></pre>
 
 
 
