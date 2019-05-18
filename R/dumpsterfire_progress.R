@@ -102,11 +102,11 @@ dumpsterfire_progress <- function() {
     labs(
       title = "progress of pieces of writing, towards content and prose",
       caption = str_wrap(
-        "content phase aims for 30% completion or consensus on content,
-         and prose phase aims for 80% completion in prose"
+        "Content phase aims for 30% completion or consensus on content,
+         and prose phase aims for 80% completion in prose. The horizontal plot facets represent the order Charles currently intends to complete these projects. "
       )
     ) +
-    ylab("pieces of writing")
+    ylab("pieces of writing that will contribute to the thesis")
 
 
 }
