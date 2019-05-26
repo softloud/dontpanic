@@ -6,6 +6,7 @@
 #' @import forcats
 #' @import stringr
 #' @import googlesheets
+#' @import lubridate
 #' @importFrom  ggmosaic geom_mosaic product
 #' @importFrom cowsay say
 NULL

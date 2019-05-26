@@ -4,6 +4,7 @@
 #'
 #' @export
 
-knittify_latex <- function(x) {
-  paste0("$", x, "$", collapse = "")
+knittify_latex <- function(x, ...) {
+  paste0("$", ..., x, "$", collapse = "") %>%
+    plotly::TeX()
 }

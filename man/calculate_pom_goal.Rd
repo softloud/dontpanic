@@ -11,7 +11,7 @@ calculate_pom_goal(travel_hrs = 0, community_hrs = 0,
 \item{travel_hrs}{number of hours of teaching}
 
 \item{community_hrs}{number of hours with other people
-Returns goal number of poms the floor of $14 - t - 1.5 c$ where $t$ denotes the number of hours of travel, and $c$ the number of hours of _community_, where the lattter includes teaching, outreach, and research collaborations. That, is I aim to draw a distinction between self-directed time, and time where I have the benefit of external motivations.}
+Returns goal number of poms the floor of $14 - t - 1.5 c$ where $t$ denotes the number of hours of travel, and $c$ the number of hours of \emph{community}, where the lattter includes teaching, outreach, and research collaborations. That, is I aim to draw a distinction between self-directed time, and time where I have the benefit of external motivations.}
 }
 \description{
 calculate number of poms

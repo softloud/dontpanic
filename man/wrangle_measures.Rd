@@ -7,7 +7,7 @@
 wrangle_measures(timetracker)
 }
 \arguments{
-\item{df}{\code{\link{measured_data}} output}
+\item{df}{\code{\link[=measured_data]{measured_data()}} output}
 }
 \description{
 this is currently hardcoded in document

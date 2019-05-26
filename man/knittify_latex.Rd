@@ -4,7 +4,7 @@
 \alias{knittify_latex}
 \title{knittify latex col}
 \usage{
-knittify_latex(x)
+knittify_latex(x, ...)
 }
 \description{
 Bind value in latex $$ for output with kable() in bookdown.

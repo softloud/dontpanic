@@ -7,7 +7,7 @@
 title_date(this_date = NULL)
 }
 \arguments{
-\item{this_date}{Optional argument to set date with a `date` object.
+\item{this_date}{Optional argument to set date with a \code{date} object.
 Otherwise defaults to current date.}
 }
 \description{

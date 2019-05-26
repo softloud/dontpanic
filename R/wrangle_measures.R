@@ -10,7 +10,7 @@ intensities <- c(
 #'
 #' this is currently hardcoded in document
 #'
-#' @param df \code{\link{measured_data}} output
+#' @param df [measured_data()] output
 #'
 #' @export
 
@@ -60,8 +60,6 @@ wrangle_measures <- function(timetracker) {
   century <- daily_work %>%
     count_workload(days = 100) %>%
     mutate(period = "c")
-
-
 
   daily_measures <- daily_work %>%
     count_workload() %>%
