@@ -3,10 +3,9 @@ title: "import data"
 output: html_document
 ---
 
-
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = FALSE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(lifeswork)
 library(tidyverse)
 library(usethis)
 
@@ -16,16 +15,23 @@ library(dontpanic)
 
 
 ```{zsh clear deets, eval=FALSE}
-# clear 
 rm ~/Downloads/Details-20170101-20200228*
 
 
 ```
 
 
+
 ```{r import data, eval=FALSE}
-# get data
-measures <- get_measures(delay = 10, update = TRUE)
+# get data via horrible manual export
+measures <- get_measures(
+  "~/Downloads/Details-20170101-20200228.csv")
+
+```
+
+```{r write data, eval=FALSE}
+# write data
+use_data(measures, overwrite = TRUE)
 
 ```
 
@@ -40,29 +46,6 @@ map2_chr(.x = measures %>% pluck("data") %>% names(),
 
 ```
 
-```{r}
-# add latex bindings to daily tasks
-daily_tasks <- measures %>% 
-  pluck("daily_tasks") %>% 
-  mutate(priority = map_chr(priority, knittify_latex),
-         context = map_chr(context, knittify_latex),
-         category = map_chr(category, knittify_latex))
 
-daily_tasks %>% head()
-
-
-
-```
-
-```{r write, eval=FALSE}
-use_data(daily_tasks, overwrite = TRUE)
-
-
-```
-
-
-```{r}
-
-```
-
+<!--chapter:end:measures.Rmd-->
 

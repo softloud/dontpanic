@@ -2,12 +2,20 @@ Package: dontpanic
 Title: Coding Equivalent of a Towel.
 Version: 0.0.0.9000
 Authors@R: person("Charles", "Gray", email = "C.Gray@latrobe.edu.au", role = c("aut", "cre"))
-Description: Helper functions.
+Description: Coding Equivalent of a Towel.
 Depends: R (>= 3.4.2)
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1.9000
-Suggests: testthat
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
 Imports: 
-    magrittr
+    magrittr,
+    tidyverse,
+    googlesheets,
+    stringr
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
