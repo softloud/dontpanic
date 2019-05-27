@@ -9,7 +9,6 @@
 \alias{wrangle}
 \alias{wrangle.default}
 \alias{wrangle.daily_tasks}
-\alias{priorities}
 \title{lifeswork}
 \usage{
 ask_gs(for_ws)
@@ -25,8 +24,6 @@ wrangle(tasks)
 \method{wrangle}{default}(tasks)
 
 \method{wrangle}{daily_tasks}(tasks)
-
-priorities(tasks)
 }
 \arguments{
 \item{sim}{A simulation object produced by \link{metasims}.}
@@ -35,8 +32,6 @@ priorities(tasks)
 These functions use \link{measures_gs_key} to access googlesheets, and produce my productivity tools.
 
 Keeping this separate as I tweak the wrangling so often.
-
-Acts on daily tasks scraped via \link{get_daily_tasks}.
 }
 \details{
 The idea is to access gs as little as possible. Multiple things are generated from each data set. So I think I'll need to do this as methods.
