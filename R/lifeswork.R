@@ -90,21 +90,9 @@ wrangle.daily_tasks <- function(tasks) {
 #' @export
 
 lifeswork_table <- function(df) {
-  df %>% kableExtra::kable() %>%
+  df %>%
+    kableExtra::kable() %>%
     kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-}
-
-#' lifeswork Get priority daily tasks
-#'
-#' Acts on daily tasks scraped via [get_daily_tasks].
-#' @rdname lifeswork
-#' @export
-
-
-priorities <- function(tasks) {
-  tasks %>%
-    wrangle() %>%
-    dplyr::filter(stringr::str_detect(.$priority, "\\*"))
 }
 
 

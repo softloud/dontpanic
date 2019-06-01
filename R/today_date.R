@@ -32,7 +32,7 @@ today_date <- function(language = "french", verbose = FALSE) {
       dplyr::filter(numeric ==
                       current_timezone_datetime %>% day()) %>%
       pluck(language),
-    ", ",
+    " ",
     # month
     date_dictionary %>%
       gs_read(ws = "month", verbose = verbose) %>%
