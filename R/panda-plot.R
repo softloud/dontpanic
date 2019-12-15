@@ -9,18 +9,18 @@ panda_plot <- function() {
     radius = c(0.25, 0.15),
     part = c("head", "body")
   ) %>%
-    arrange(y)
+    dplyr::arrange(y)
 
   panda_body_coord <- function(part, coord) {
-    panda_body_df %>% dplyr::filter(part == !!part) %>% pluck(coord)
+    panda_body_df %>% dplyr::filter(part == !!part) %>% purrr::pluck(coord)
   }
 
   panda_body <- panda_body_df %>%
-    ggplot(aes(x0 = x, y0 = y, r = radius)) +
+    ggplot2::ggplot(aes(x0 = x, y0 = y, r = radius)) +
     ggforce::geom_circle(fill = "white") +
-    lims(x = c(0, 1),
+    ggplot2::lims(x = c(0, 1),
          y = c(0, 1)) +
-    theme_void()
+    ggplot2::theme_void()
 
   # eyes
   dots_data <- tibble::tibble(
@@ -32,18 +32,31 @@ panda_plot <- function() {
     part = "eyes"
   ) %>%
     # ears
-    add_row(
+    dplyr::add_row(
       x = panda_body_coord("head", "x") +
-        c(-1, 1) * (panda_body_coord("head", "radius") / 1.3),
+        c(-1, 1) * (panda_body_coord("head", "radius") * 0.75),
       y = panda_body_coord("head", "y") +
         panda_body_coord("head", "radius") * 0.9,
-      radius = panda_body_coord("head", "radius") / 3,
+      radius = panda_body_coord("head", "radius") * 0.4,
       part = "ears"
-    ) # %>%
+    ) %>%
   # paws
-  # add_row(
-  #   x =
-  # )
+  dplyr::add_row(
+    x = panda_body_coord("body", "x") +
+      c(-1, 1) * panda_body_coord("body", "radius") * 0.9,
+    y = panda_body_coord("body", "y") +
+      panda_body_coord("body", "radius") * 0.1,
+    radius = panda_body_coord("head", "radius") * 0.2,
+    part = "front_paws"
+  ) %>%
+  dplyr::add_row(
+    x = panda_body_coord("body", "x") +
+      c(-1, 1) * panda_body_coord("body", "radius") * 0.9,
+    y = panda_body_coord("body", "y") -
+      panda_body_coord("body", "radius") * 0.9,
+    radius = panda_body_coord("head", "radius") * 0.2,
+    part = "back_paws"
+  )
 
   panda_body +
     ggforce::geom_circle(data = dots_data,
