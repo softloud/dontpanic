@@ -5,7 +5,7 @@
 #'
 #' @export
 
-panda <- function(seed = "random", msg = NULL) {
+panda <- function(msg = NULL, seed = "random") {
 
   # seed
   if (seed == "random") {

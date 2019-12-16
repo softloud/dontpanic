@@ -4,12 +4,12 @@
 \alias{panda}
 \title{Make a panda}
 \usage{
-panda(seed = "random", msg = NULL)
+panda(msg = NULL, seed = "random")
 }
 \arguments{
-\item{seed}{Set a random seed to reproduce a panda.}
-
 \item{msg}{The panda can speak your words.}
+
+\item{seed}{Set a random seed to reproduce a panda.}
 }
 \description{
 Make a panda
