@@ -19,7 +19,7 @@ panda_plot <- function() {
     ggplot2::ggplot(aes(x0 = x, y0 = y, r = radius)) +
     ggforce::geom_circle(fill = "white") +
     ggplot2::lims(x = c(0, 1),
-         y = c(0, 1)) +
+                  y = c(0, 1)) +
     ggplot2::theme_void()
 
   # eyes
@@ -27,7 +27,7 @@ panda_plot <- function() {
     x = panda_body_coord("head", "x") +
       c(-1, 1) * panda_body_coord("head", "radius") / 2.2,
     y = panda_body_coord("head", "y") +
-      panda_body_coord("head", "radius") / 6,
+      panda_body_coord("head", "radius") * 0.1,
     radius = 0.02,
     part = "eyes"
   ) %>%
@@ -36,31 +36,35 @@ panda_plot <- function() {
       x = panda_body_coord("head", "x") +
         c(-1, 1) * (panda_body_coord("head", "radius") * 0.75),
       y = panda_body_coord("head", "y") +
-        panda_body_coord("head", "radius") * 0.9,
+        panda_body_coord("head", "radius") * 0.9 +
+        rnorm(2, mean = 0, sd = panda_body_coord("head", "radius") * 0.1),
       radius = panda_body_coord("head", "radius") * 0.4,
       part = "ears"
     ) %>%
-  # paws
-  dplyr::add_row(
-    x = panda_body_coord("body", "x") +
-      c(-1, 1) * panda_body_coord("body", "radius") * 0.9,
-    y = panda_body_coord("body", "y") +
-      panda_body_coord("body", "radius") * 0.1,
-    radius = panda_body_coord("head", "radius") * 0.2,
-    part = "front_paws"
-  ) %>%
-  dplyr::add_row(
-    x = panda_body_coord("body", "x") +
-      c(-1, 1) * panda_body_coord("body", "radius") * 0.9,
-    y = panda_body_coord("body", "y") -
-      panda_body_coord("body", "radius") * 0.9,
-    radius = panda_body_coord("head", "radius") * 0.2,
-    part = "back_paws"
-  )
-
+    # paws
+    dplyr::add_row(
+      x = panda_body_coord("body", "x") +
+        c(-1, 1) * panda_body_coord("body", "radius") * 0.9 +
+        rnorm(2,sd = panda_body_coord("body", "radius") * 0.2),
+      y = panda_body_coord("body", "y") +
+        panda_body_coord("body", "radius") * 0.1 +
+        rnorm(2,sd = panda_body_coord("body", "radius") * 0.2),
+      radius = panda_body_coord("head", "radius") * 0.2,
+      part = "front_paws"
+    ) %>%
+    dplyr::add_row(
+      x = panda_body_coord("body", "x") +
+        c(-1, 1) * panda_body_coord("body", "radius") * 0.9 +
+        rnorm(2,sd = panda_body_coord("body", "radius") * 0.1),
+      y = panda_body_coord("body", "y") -
+        panda_body_coord("body", "radius") * 0.9 +
+        rnorm(2,sd = panda_body_coord("body", "radius") * 0.1),
+      radius = panda_body_coord("head", "radius") * 0.2,
+      part = "back_paws"
+    )
   panda_body +
     ggforce::geom_circle(data = dots_data,
-                aes(x0 = x, y0 = y, r = radius),
-                fill = "black")
+                         aes(x0 = x, y0 = y, r = radius),
+                         fill = "black")
 
 }
