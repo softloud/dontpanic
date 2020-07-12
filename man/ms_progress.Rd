@@ -15,7 +15,7 @@ Progress converter
 \seealso{
 Other manuscript trackers: 
 \code{\link{ms_dat}()},
-\code{\link{ms_goal}()},
+\code{\link{ms_report}()},
 \code{\link{ms_three}()}
 }
 \concept{manuscript trackers}

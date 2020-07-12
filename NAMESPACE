@@ -2,8 +2,8 @@
 
 export("%>%")
 export(ms_dat)
-export(ms_goal)
 export(ms_progress)
+export(ms_report)
 export(ms_three)
 export(pom_report)
 export(pom_today)

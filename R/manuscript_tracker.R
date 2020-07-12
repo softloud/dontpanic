@@ -72,7 +72,7 @@ ms_three <-
 
     ms_dat %>%
       dplyr::mutate(total = dplyr::if_else(is.na(total), 1, total + 1)) %>%
-    dplyr::left_join(key, by = c("total" = "progress")) %>%
+      dplyr::left_join(key, by = c("total" = "progress")) %>%
       dplyr::filter(stage %in% stage_levels) %>%
       dplyr::arrange(total) %>%
       dplyr::select(ms, next_action = label) %>%
@@ -88,12 +88,15 @@ ms_three <-
 #'
 #' @export
 
-ms_goal <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
+ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
   dat <-  ms_dat(ms, ms_url)
 
-  tibble::tibble(
-    completed = sum(dat$total, na.rm = TRUE),
-    n  = nrow(dat) * 8
-  )
+  tibble::tibble(completed = sum(dat$total, na.rm = TRUE),
+                 to_complete  = nrow(dat) * 8) %>%
+    dplyr::mutate(
+      draft_remaining = nrow(dat) * 4 - completed,
+      draft_remaining = dplyr::if_else(draft_remaining < 0, 0, draft_remaining)
+    )
+
 
 }
