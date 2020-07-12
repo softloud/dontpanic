@@ -93,8 +93,7 @@ ms_goal <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
 
   tibble::tibble(
     completed = sum(dat$total, na.rm = TRUE),
-    n  = nrow(dat) * 8,
-    goal = sum(dat$total, na.rm = TRUE) + 3
+    n  = nrow(dat) * 8
   )
 
 }
