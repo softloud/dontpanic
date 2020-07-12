@@ -4,3 +4,4 @@
 ^README-.*\.png$
 ^\.httr-oauth$
 ^LICENSE\.md$
+^\.travis\.yml$

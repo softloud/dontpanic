@@ -17,6 +17,7 @@ Get next three dots
 \seealso{
 Other manuscript trackers: 
 \code{\link{ms_dat}()},
+\code{\link{ms_goal}()},
 \code{\link{ms_progress}()}
 }
 \concept{manuscript trackers}

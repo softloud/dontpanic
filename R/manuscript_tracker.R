@@ -23,7 +23,7 @@
 #' @family manuscript trackers
 
 ms_dat <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
-  googlesheets4::read_sheet(ms_url, ms)
+  googlesheets4::read_sheet(ms_url, ms) %>% janitor::clean_names()
 }
 
 #' Progress converter
@@ -79,3 +79,22 @@ ms_three <-
       head(3)
 
   }
+
+#' Manuscript summary
+#'
+#' @inheritParams ms_dat
+#'
+#' @family manuscript trackers
+#'
+#' @export
+
+ms_goal <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
+  dat <-  ms_dat(ms, ms_url)
+
+  tibble::tibble(
+    completed = sum(dat$total, na.rm = TRUE),
+    n  = nrow(dat) * 8,
+    goal = sum(dat$total, na.rm = TRUE) + 3
+  )
+
+}

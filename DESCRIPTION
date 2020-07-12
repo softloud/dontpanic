@@ -18,6 +18,8 @@ Imports:
     googlesheets,
     stringr,
     knitr,
-    togglr
+    togglr,
+    googlesheets4,
+    janitor
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

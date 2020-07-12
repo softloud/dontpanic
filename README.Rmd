@@ -14,6 +14,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.com/softloud/dontpanic.svg?branch=master)](https://travis-ci.com/softloud/dontpanic)
+<!-- badges: end -->
+
 # dontpanic
 
 The goal of dontpanic is to be the coding equivalent of a towel. My helper functions are parked here. Work in progress, use at own risk.
