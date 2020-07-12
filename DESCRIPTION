@@ -17,6 +17,7 @@ Imports:
     tidyverse,
     googlesheets,
     stringr,
-    knitr
+    knitr,
+    togglr
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
