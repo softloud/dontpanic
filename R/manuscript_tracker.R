@@ -92,10 +92,12 @@ ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
   dat <-  ms_dat(ms, ms_url)
 
   tibble::tibble(completed = sum(dat$total, na.rm = TRUE),
-                 to_complete  = nrow(dat) * 8) %>%
+                 sections = nrow(dat)
+) %>%
     dplyr::mutate(
-      draft_remaining = nrow(dat) * 4 - completed,
-      draft_remaining = dplyr::if_else(draft_remaining < 0, 0, draft_remaining)
+      draft_remaining = sections * 4 - completed,
+      draft_remaining = dplyr::if_else(draft_remaining < 0, 0, draft_remaining),
+      to_complete  = sections * 8
     )
 
 
@@ -122,5 +124,6 @@ ms_vis <- function(ms_url = Sys.getenv("MS_TRACKER")){
     hrbrthemes::scale_color_ipsum() +
     ggthemes::theme_wsj() +
     ggplot2::labs(title = "manuscript progress over time",
-                  y = "proportion of manuscript tracking completed")
+                  y = "proportion of draft steps") #+
+    #ggplot2::theme(axis.title = ggplot2::element_text(size = 12))
 }
