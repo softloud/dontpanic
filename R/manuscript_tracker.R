@@ -100,3 +100,27 @@ ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
 
 
 }
+
+#' Visualise manuscript progess over time
+#'
+#' @inheritParams ms_dat
+#'
+#' @export
+
+ms_vis <- function(ms_url = Sys.getenv("MS_TRACKER")){
+  plot_dat <- ms_dat("completedness", ms_url)
+
+  plot_dat %>%
+    dplyr::group_by(manuscript) %>%
+    dplyr::mutate(shape = round(completed / (sections * 4)),
+                  shape = dplyr::if_else(shape <= 4, "draft", paste("read", shape - 3)),
+                  p = completed / (sections * 4),
+                  p = dplyr::if_else(p > 1, 1, p)) %>%
+    ggplot2::ggplot(ggplot2::aes(x = date, y = p, colour = manuscript)) +
+    ggplot2::geom_line(alpha = 0.3) +
+    ggplot2::geom_point(alpha = 0.6, size = 5, ggplot2::aes(shape = shape)) +
+    hrbrthemes::scale_color_ipsum() +
+    ggthemes::theme_wsj() +
+    ggplot2::labs(title = "manuscript progress over time",
+                  y = "proportion of manuscript tracking completed")
+}
