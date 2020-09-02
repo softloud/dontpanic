@@ -11,7 +11,7 @@
 #' gs_metadat %>%
 #'   pluck("sheets")
 #'
-#' dat %>% filter(total == min(total)) %>% pluck("ms") %>% sample(3)
+#' dat %>% filter(progress_achieved == min(progress_achieved)) %>% pluck("ms") %>% sample(3)
 
 #' Get manuscript tracker data
 #'
@@ -23,7 +23,14 @@
 #' @family manuscript trackers
 
 ms_dat <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
-  googlesheets4::read_sheet(ms_url, ms) %>% janitor::clean_names()
+  dat <-
+    googlesheets4::read_sheet(ms_url, ms) %>%
+    janitor::clean_names()
+
+  dat %>%
+    mutate(
+     progress_achieved = dat %>% select(-1) %>% apply(1, sum, na.rm=TRUE)
+    )
 }
 
 #' Progress converter
@@ -62,7 +69,8 @@ ms_three <-
     ms_dat <-
       ms_dat(ms, ms_url)
 
-    key <- ms_dat("progress_key", ms_url)
+    key <- googlesheets4::read_sheet(ms_url, "progress_key") %>%
+      janitor::clean_names()
 
     stage_levels <- if (isTRUE(draft)) {
       "draft"
@@ -71,14 +79,25 @@ ms_three <-
     }
 
     ms_dat %>%
-      dplyr::mutate(total = dplyr::if_else(is.na(total), 1, total + 1)) %>%
-      dplyr::left_join(key, by = c("total" = "progress")) %>%
+      dplyr::mutate(progress_achieved = dplyr::if_else(is.na(progress_achieved), 1,progress_achieved + 1)) %>%
+      dplyr::left_join(key, by = c("progress_achieved" = "progress")) %>%
       dplyr::filter(stage %in% stage_levels) %>%
-      dplyr::arrange(total) %>%
+      dplyr::arrange(progress_achieved) %>%
       dplyr::select(ms, next_action = label) %>%
       head(3)
 
   }
+
+#' Next action
+#'
+#' @inheritParams ms_three
+#'
+#' @export
+
+ms_next <- function(ms, ...) {
+  ms_three(ms, ...) %>%
+    head(1)
+}
 
 #' Manuscript summary
 #'
@@ -91,8 +110,9 @@ ms_three <-
 ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
   dat <-  ms_dat(ms, ms_url)
 
-  tibble::tibble(completed = sum(dat$total, na.rm = TRUE),
-                 sections = nrow(dat)
+  tibble::tibble(completed = sum(dat$progress_achieved, na.rm = TRUE),
+                 sections = nrow(dat),
+                 progress_levels = ncol(dat) - 1
 ) %>%
     dplyr::mutate(
       draft_remaining = sections * 4 - completed,
@@ -112,7 +132,11 @@ ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
 ms_vis <- function(ms_url = Sys.getenv("MS_TRACKER")){
   plot_dat <- ms_dat("completedness", ms_url)
 
+  categories <- ms_dat("dataset_key", ms_url)
+
   plot_dat %>%
+    dplyr::left_join(categories, by = "manuscript") %>%
+    dplyr::mutate(category_label = paste0("$\\", category, "$")) %>%
     dplyr::group_by(manuscript) %>%
     dplyr::mutate(shape = round(completed / (sections * 4)),
                   shape = dplyr::if_else(shape <= 4, "draft", paste("read", shape - 3)),
@@ -121,6 +145,10 @@ ms_vis <- function(ms_url = Sys.getenv("MS_TRACKER")){
     ggplot2::ggplot(ggplot2::aes(x = date, y = p, colour = manuscript)) +
     ggplot2::geom_line(alpha = 0.3) +
     ggplot2::geom_point(alpha = 0.6, size = 5, ggplot2::aes(shape = shape)) +
+    ggplot2::facet_grid(
+      # labeller = ggplot2::label_parsed(category_label),
+      category ~ .
+                        ) +
     hrbrthemes::scale_color_ipsum() +
     ggthemes::theme_wsj() +
     ggplot2::labs(title = "manuscript progress over time",

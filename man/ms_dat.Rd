@@ -24,7 +24,7 @@ gs4_get()
 gs_metadat \%>\%
 pluck("sheets")
 
-dat \%>\% filter(total == min(total)) \%>\% pluck("ms") \%>\% sample(3)
+dat \%>\% filter(progress_achieved == min(progress_achieved)) \%>\% pluck("ms") \%>\% sample(3)
 Get manuscript tracker data
 }
 \seealso{
