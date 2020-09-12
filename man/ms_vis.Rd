@@ -4,7 +4,7 @@
 \alias{ms_vis}
 \title{Visualise manuscript progess over time}
 \usage{
-ms_vis(ms_url = Sys.getenv("MS_TRACKER"))
+ms_vis(all_ms = FALSE, ms_url = Sys.getenv("MS_TRACKER"))
 }
 \arguments{
 \item{ms_url}{googlesheet of manuscript trackers}

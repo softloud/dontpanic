@@ -29,7 +29,6 @@ Get manuscript tracker data
 }
 \seealso{
 Other manuscript trackers: 
-\code{\link{ms_progress}()},
 \code{\link{ms_report}()},
 \code{\link{ms_three}()}
 }
