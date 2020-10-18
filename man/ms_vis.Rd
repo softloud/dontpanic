@@ -7,6 +7,8 @@
 ms_vis(all_ms = FALSE, ms_url = Sys.getenv("MS_TRACKER"))
 }
 \arguments{
+\item{all_ms}{Show active manuscripts, default, or all manuscripts.}
+
 \item{ms_url}{googlesheet of manuscript trackers}
 }
 \description{

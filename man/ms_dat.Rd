@@ -24,12 +24,12 @@ gs4_get()
 gs_metadat \%>\%
 pluck("sheets")
 
-dat \%>\% filter(progress_achieved == min(progress_achieved)) \%>\% pluck("ms") \%>\% sample(3)
+dat \%>\% filter(draft_progress == min(draft_progress)) \%>\% pluck("ms") \%>\% sample(3)
 Get manuscript tracker data
 }
 \seealso{
 Other manuscript trackers: 
-\code{\link{ms_report}()},
-\code{\link{ms_three}()}
+\code{\link{ms_next}()},
+\code{\link{ms_report}()}
 }
 \concept{manuscript trackers}

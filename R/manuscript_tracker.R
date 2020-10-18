@@ -11,7 +11,7 @@
 #' gs_metadat %>%
 #'   pluck("sheets")
 #'
-#' dat %>% filter(progress_achieved == min(progress_achieved)) %>% pluck("ms") %>% sample(3)
+#' dat %>% filter(draft_progress == min(draft_progress)) %>% pluck("ms") %>% sample(3)
 
 #' Get manuscript tracker data
 #'
@@ -24,26 +24,35 @@
 
 ms_dat <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
   dat <-
-    googlesheets4::read_sheet(ms_url, ms) %>%
+    suppressMessages(googlesheets4::read_sheet(ms_url, ms)) %>%
     janitor::clean_names()
 
   progress_levels <-
-    names(dat)[2:ncol(dat)]
+    dat %>%
+    dplyr::select(!dplyr::contains("read"), -ms) %>%
+    names()
 
   dat %>%
-    dplyr::mutate(progress_achieved = dat %>%
-                    dplyr::select(-1) %>%
-                    apply(1, sum, na.rm = TRUE)) %>%
-    dplyr::select(ms, progress_achieved) %>%
+    dplyr::select(ms) %>%
     dplyr::mutate(
-      next_action = dplyr::if_else(
-        progress_achieved == length(progress_levels),
-        "completed",
-        progress_levels[progress_achieved + 1]
+      draft_progress =
+        dat %>%
+        dplyr::select(!dplyr::contains("read"), -ms) %>%
+        apply(1, sum, na.rm = TRUE),
+      read_progress =
+        dat %>%
+        dplyr::select(dplyr::contains("read")) %>%
+        apply(1, sum, na.rm = TRUE)
+    ) %>%
+    dplyr::select(ms, draft_progress, read_progress) %>%
+    dplyr::mutate(
+      draft_next_action = dplyr::case_when(
+        draft_progress == length(progress_levels) &
+          read_progress >= 4 ~ "completed",
+        draft_progress == length(progress_levels) &
+          read_progress < 4 ~ "read",
+        TRUE ~ progress_levels[draft_progress + 1]
       ),
-      status = dplyr::if_else(stringr::str_detect(next_action, "read"),
-                              "edit",
-                              "draft"),
       total_levels = length(progress_levels)
     )
 }
@@ -56,29 +65,43 @@ ms_dat <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
 #'
 #' @export
 
-ms_three <-
+ms_next <-
   function(ms,
-           ms_url = Sys.getenv("MS_TRACKER"),
-           draft = TRUE) {
+           ms_url = Sys.getenv("MS_TRACKER")) {
     # get the data
     ms_dat <-
       ms_dat(ms, ms_url)
 
-    ms_dat %>%
-      dplyr::arrange(progress_achieved) %>%
-      head(3)
+    cat("\n***\nthese sections next\n\n")
+
+    next_actions <-
+      ms_dat %>%
+      dplyr::arrange(draft_progress) %>%
+      dplyr::select(ms, draft_next_action) %>%
+      head(1)
+
+
+    print(next_actions)
+
+    min_reading <-
+      ms_dat %>%
+      dplyr::filter(read_progress == min(read_progress)) %>%
+      head(1)
+
+    reading_message <-
+      dplyr::if_else(
+        min_reading$read_progress >= 4,
+        "\n***\nAll sections read at least 4 times.\n***\n",
+        sprintf(
+          "\n***\nthen read from Section %s until end of pom",
+          min_reading %>% dplyr::pull(ms)
+        )
+      )
+
+    cat(reading_message)
+
   }
 
-#' Next action
-#'
-#' @inheritParams ms_three
-#'
-#' @export
-
-ms_next <- function(ms, ...) {
-  ms_three(ms, ...) %>%
-    head(1)
-}
 
 #' Manuscript summary
 #'
@@ -91,28 +114,24 @@ ms_next <- function(ms, ...) {
 ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
   dat <- ms_dat(ms, ms_url)
 
-  tibble::tibble(
-    completed = sum(dat$progress_achieved, na.rm = TRUE),
-    sections = nrow(dat),
-    progress_levels = dat$total_levels %>% unique()
-  )   %>%
+  dat %>%
     dplyr::mutate(
-      draft_remaining =
-        dat %>%
-        dplyr::filter(status == "draft") %>%
-        dplyr::mutate(remaining = total_levels - progress_achieved) %>%
-        dplyr::pull(remaining) %>%
-        sum()
-      ,
-      to_complete  = sum(dat$total_levels - dat$progress_achieved)
+      draft_remaining = total_levels - draft_progress,
+      read_remaining = dplyr::if_else(read_progress > 4, 0, 4 - read_progress)
+    ) %>%
+    dplyr::summarise(
+      completed = sum(draft_progress),
+      sections = dplyr::n(),
+      progress_levels = max(total_levels),
+      draft_remaining = sum(draft_remaining),
+      read_remaining = sum(read_remaining)
     )
-
 
 }
 
 #' Visualise manuscript progess over time
 #'
-#' @all_ms Show active manuscripts, default, or all manuscripts.
+#' @param all_ms Show active manuscripts, default, or all manuscripts.
 #' @inheritParams ms_dat
 #'
 #' @export
@@ -135,8 +154,7 @@ ms_vis <- function(all_ms = FALSE,
   if (isTRUE(all_ms)) {
     print("haven't coded this yet")
   } else {
-
-      all_ms %>%
+    all_ms %>%
       dplyr::filter(is.na(status)) %>%
       dplyr::group_by(manuscript) %>%
       ggplot2::ggplot(ggplot2::aes(
@@ -147,14 +165,15 @@ ms_vis <- function(all_ms = FALSE,
       ggplot2::geom_line(alpha = 0.3) +
       ggplot2::geom_point(alpha = 0.6,
                           size = 5) +
-      ggplot2::facet_grid(category ~ .,
-        #labeller = ggplot2::label_parsed(category_label)
-                          ) +
-      hrbrthemes::scale_color_ipsum() +
-      ggplot2::ylim(0,1) +
-      ggthemes::theme_wsj() +
-      ggplot2::labs(title = "manuscript progress over time",
-                    y = "planned work completed")
+      ggplot2::facet_grid(
+        category ~ .,
+        #labeller = ggplot2::label_parsed(category_label)) +
+        hrbrthemes::scale_color_ipsum() +
+          ggplot2::ylim(0, 1) +
+          ggthemes::theme_wsj() +
+          ggplot2::labs(title = "manuscript progress over time",
+                        y = "planned work completed")
+      )
 
-      }
+  }
 }

@@ -2,13 +2,21 @@
 % Please edit documentation in R/manuscript_tracker.R
 \name{ms_next}
 \alias{ms_next}
-\title{Next action}
+\title{Get next three dots}
 \usage{
-ms_next(ms, ...)
+ms_next(ms, ms_url = Sys.getenv("MS_TRACKER"))
 }
 \arguments{
 \item{ms}{manuscript and name of sheet}
+
+\item{ms_url}{googlesheet of manuscript trackers}
 }
 \description{
-Next action
+Get next three dots
 }
+\seealso{
+Other manuscript trackers: 
+\code{\link{ms_dat}()},
+\code{\link{ms_report}()}
+}
+\concept{manuscript trackers}

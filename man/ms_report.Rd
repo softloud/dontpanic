@@ -17,6 +17,6 @@ Manuscript summary
 \seealso{
 Other manuscript trackers: 
 \code{\link{ms_dat}()},
-\code{\link{ms_three}()}
+\code{\link{ms_next}()}
 }
 \concept{manuscript trackers}
