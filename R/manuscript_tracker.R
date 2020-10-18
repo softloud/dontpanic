@@ -120,7 +120,7 @@ ms_report <- function(ms, ms_url = Sys.getenv("MS_TRACKER")) {
       read_remaining = dplyr::if_else(read_progress > 4, 0, 4 - read_progress)
     ) %>%
     dplyr::summarise(
-      completed = sum(draft_progress),
+      completed = sum(draft_progress) + sum(read_progress),
       sections = dplyr::n(),
       progress_levels = max(total_levels),
       draft_remaining = sum(draft_remaining),
