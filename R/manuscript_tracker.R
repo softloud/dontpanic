@@ -149,31 +149,40 @@ ms_vis <- function(all_ms = FALSE,
 
   all_ms <-
     completedness %>%
-    dplyr::left_join(categories, by = "manuscript")
+    dplyr::left_join(categories, by = "manuscript") %>%
+    dplyr::mutate(
+      progress_levels = as.numeric(progress_levels),
+      status = dplyr::case_when(
+        !is.na(status) ~ status,
+        completed < (sections * progress_levels) ~ "draft",
+        completed > (sections * progress_levels) ~ "edit"
+      )
+    )
 
   if (isTRUE(all_ms)) {
     print("haven't coded this yet")
   } else {
     all_ms %>%
-      dplyr::filter(is.na(status)) %>%
+      dplyr::filter(status != "dropped") %>%
       dplyr::group_by(manuscript) %>%
       ggplot2::ggplot(ggplot2::aes(
         x = date,
         y = completed / (sections * progress_levels),
-        colour = manuscript
+        colour = manuscript,
+        shape = status
       )) +
       ggplot2::geom_line(alpha = 0.3) +
       ggplot2::geom_point(alpha = 0.6,
                           size = 5) +
       ggplot2::facet_grid(
-        category ~ .,
-        #labeller = ggplot2::label_parsed(category_label)) +
+        category ~ .
+        #labeller = ggplot2::label_parsed(category_label)
+        ) +
         hrbrthemes::scale_color_ipsum() +
           ggplot2::ylim(0, 1) +
           ggthemes::theme_wsj() +
           ggplot2::labs(title = "manuscript progress over time",
                         y = "planned work completed")
-      )
 
   }
 }
