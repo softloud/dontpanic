@@ -20,6 +20,11 @@ Imports:
     knitr,
     togglr,
     googlesheets4,
-    janitor
+    janitor,
+    dplyr,
+    lubridate,
+    purrr,
+    tibble,
+    tidyr
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

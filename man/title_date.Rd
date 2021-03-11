@@ -2,9 +2,9 @@
 % Please edit documentation in R/title_date.R
 \name{title_date}
 \alias{title_date}
-\title{Format Date for .RPres}
+\title{Format date for humans}
 \usage{
-title_date(this_date = NULL)
+title_date(this_date = lubridate::today())
 }
 \arguments{
 \item{this_date}{Optional argument to set date with a \code{date} object.
