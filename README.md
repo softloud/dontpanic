@@ -1,58 +1,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/softloud/dontpanic.svg?branch=master)](https://travis-ci.com/softloud/dontpanic)
+[![R-CMD-check](https://github.com/softloud/dontpanic/workflows/R-CMD-check/badge.svg)](https://github.com/softloud/dontpanic/actions)
 <!-- badges: end -->
 
-dontpanic
-=========
+# dontpanic
 
 The goal of dontpanic is to be the coding equivalent of a towel. My
 helper functions are parked here. Work in progress, use at own risk.
-
-Example
--------
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-## basic example code
-
-# Yeah, I wouldn't trust any code I haven't touched for a few weeks. It has a life of its own. 
-```
-
-Signifiers
-----------
-
-I’ll bet I’m trying to reinvent the wheel here, there’s probably a
-mountain of literature on how to track projects using emoji on github.
-
-But right now I’ve got less than two weeks to prepare for a talk on
-visualisation to people who are very smart. (I also really like them and
-want them to be my friends, and if I take on too much right now I’ll be
-too wild-eyed crazy to be approachable.)
-
-So, I’m just going to dive in and make something up to get me through
-the next few weeks.
-
-### Structure
-
-I want to run my eyes down commit history and have things pop out.
-
-You’re usually looking for an issue not a person, so the issue should be
-on the lefthand side. The next question might be who made that change.
-So, signifier for person goes at the end.
-
-> :issue\_emoji: Some commit message. :person\_emoji:
-
-### Signifiers
-
-Perhaps I should just wrap these up in some functions.
-
--   `:notes:` `pandagrrl` :notes:.
--   `:musical_score:` :musical\_score: Documentation.
--   `:musical_keyboard:` :musical\_keyboard: Updated README.Rmd.
--   `:cat:` :cat: Any work on functions.
--   `:dizzy:` :dizzy: Testing.
--   `:cat2:` :cat2: Simulations.
