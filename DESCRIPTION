@@ -9,7 +9,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Suggests: 
-    testthat,
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown
 Imports: 
@@ -28,3 +28,4 @@ Imports:
     tidyr
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
