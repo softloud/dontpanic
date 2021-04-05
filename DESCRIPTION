@@ -25,7 +25,8 @@ Imports:
     lubridate,
     purrr,
     tibble,
-    tidyr
+    tidyr,
+    rlang
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

@@ -2,6 +2,7 @@
 
 export("%>%")
 export(droll)
+export(lotr_study_hash)
 export(measures_update)
 export(quaver)
 export(quavers)
