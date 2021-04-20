@@ -4,14 +4,20 @@
 \alias{lotr_study_hash}
 \title{Hash studies with LOTR characters}
 \usage{
-lotr_study_hash(dat, study_col, sep = "_")
+lotr_study_hash(dat, study_col, trt_col, sep = "_", max_obs = 500)
 }
 \arguments{
 \item{dat}{A data frame with \code{study_col} column.}
 
-\item{study_col}{Column that uniquely identifies the study.}
+\item{study_col}{Column indicating which study the observations recorded in
+that row came from. This will replace them with star wars characters.}
+
+\item{trt_col}{Column indicating which treatments. Replaced with
+lotr characters.}
 
 \item{sep}{Separator between name and year, defaults to "_".}
+
+\item{max_obs}{Gotta put a number into the year sampler.}
 }
 \description{
 Replaces study identifier column with random combination of lord of the rings
