@@ -15,10 +15,8 @@ Suggests:
 Imports: 
     magrittr,
     tidyverse,
-    googlesheets,
     stringr,
     knitr,
-    togglr,
     googlesheets4,
     janitor,
     dplyr,
