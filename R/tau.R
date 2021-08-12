@@ -30,16 +30,16 @@ tau <- function(nma_mod) {
       alpha = 0.6
     ) +
     ggplot2::xlim(tau_vals$mean - 3*tau_vals$sd, tau_vals$mean + 3*tau_vals$sd) +
-    ggthemes::theme_tufte(
-      base_size = 25
-    ) +
+    # ggthemes::theme_tufte(
+    #   base_size = 25
+    # ) +
     ggplot2::theme(
       axis.text.y = ggplot2::element_blank(),
       axis.ticks.y = ggplot2::element_blank()
     ) +
     ggplot2::labs(
       title = "Between-study variation",
-      subtitle = TeX("$\\tau^2$"),
+      subtitle = latex2exp::TeX("$\\tau^2$"),
       y = "",
       x = "",
       caption = glue::glue(
