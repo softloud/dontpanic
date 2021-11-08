@@ -8,7 +8,10 @@
 #' @export
 #'
 #' @examples
+#' msg("quack quack")
 
 msg <- function(msg) {
-  message(crayon::blue(glue::glue("--] {msg}")))
+  message(crayon::blue(glue::glue("\n
+                                  --] {msg}
+                                  \n")))
 }

@@ -15,3 +15,6 @@ msg(msg)
 \description{
 Don't forget to preface with dontpanic:: so can keep track of where it comes from.
 }
+\examples{
+msg("quack quack")
+}
